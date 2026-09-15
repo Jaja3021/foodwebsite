@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-offwhite text-body font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  ::selection {
+    @apply bg-gold text-ink;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all
+           duration-200 disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none
+           focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2;
+  }
+  .btn-gold {
+    @apply btn bg-gold text-ink hover:bg-golddark hover:shadow-gold active:scale-[0.97];
+  }
+  .btn-dark {
+    @apply btn bg-ink text-cream hover:bg-warm active:scale-[0.97];
+  }
+  .btn-outline {
+    @apply btn border-2 border-ink/15 bg-transparent text-body hover:border-gold hover:text-warm active:scale-[0.97];
+  }
+  .btn-ghost-light {
+    @apply btn border-2 border-cream/40 text-cream hover:bg-cream hover:text-ink active:scale-[0.97];
+  }
+  .btn-sm { @apply px-4 py-2 text-sm; }
+  .btn-md { @apply px-6 py-3 text-sm; }
+  .btn-lg { @apply px-8 py-4 text-base; }
+
+  .card {
+    @apply rounded-xl2 bg-white shadow-soft ring-1 ring-ink/5;
+  }
+  .field {
+    @apply w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm text-body
+           placeholder:text-body/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30;
+  }
+  .field-dark {
+    @apply w-full rounded-xl border border-cream/15 bg-white/5 px-4 py-3 text-sm text-cream
+           placeholder:text-cream/40 transition focus:border-gold focus:outline-none focus:ring-2 focus:ring-gold/30;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-body/60;
+  }
+  .section {
+    @apply px-5 py-16 sm:px-8 md:py-24;
+  }
+  .container-th {
+    @apply mx-auto w-full max-w-7xl;
+  }
+  .skeleton {
+    @apply relative overflow-hidden rounded-xl bg-ink/5;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0 -translate-x-full;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    animation: shimmer 1.6s infinite;
+  }
+}
+
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
+/* Slim scrollbars for dark panels */
+.scroll-slim::-webkit-scrollbar { width: 6px; height: 6px; }
+.scroll-slim::-webkit-scrollbar-thumb { @apply rounded-full bg-ink/20; }
+
+@media print {
+  .no-print { display: none !important; }
+  .print-block { display: block !important; }
+  body { background: #fff; }
+}
