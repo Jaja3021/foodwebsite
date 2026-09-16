@@ -38,20 +38,20 @@ insert into menu_items (id, category_id, name, description, price, discount_pric
   ('00000000-0000-0000-0001-000000000012','00000000-0000-0000-0000-000000000002','Pusit Silog','Grilled squid rings glazed in calamansi-soy.',129,null,'/images/menu/pusit.jpg',18,true,false,12),
   ('00000000-0000-0000-0001-000000000013','00000000-0000-0000-0000-000000000002','Danggit Silog','Cebu-style salted danggit, fried light and crisp.',109,null,'/images/menu/danggit.jpg',12,true,false,13),
   ('00000000-0000-0000-0001-000000000014','00000000-0000-0000-0000-000000000002','Tuyo Silog','Classic salted tuyo — the true Filipino breakfast.',79,null,'/images/menu/tuyo.jpg',10,false,false,14),
-  ('00000000-0000-0000-0001-000000000015','00000000-0000-0000-0000-000000000003','Extra Rice','One cup of steamed rice.',25,null,'/images/menu/rice.jpg',3,true,false,15),
-  ('00000000-0000-0000-0001-000000000016','00000000-0000-0000-0000-000000000003','Garlic Rice','Fried rice tossed with toasted garlic.',35,null,'/images/menu/rice.jpg',5,true,false,16),
-  ('00000000-0000-0000-0001-000000000017','00000000-0000-0000-0000-000000000003','Fried Egg','Sunny-side-up, runny yolk guaranteed.',20,null,'/images/menu/egg.jpg',3,true,false,17),
-  ('00000000-0000-0000-0001-000000000018','00000000-0000-0000-0000-000000000003','Atchara','Pickled green papaya to cut the richness.',25,null,'/images/menu/side.jpg',2,true,false,18),
-  ('00000000-0000-0000-0001-000000000019','00000000-0000-0000-0000-000000000004','Bottomless Iced Tea','House-brewed lemon iced tea, free refills in-store.',49,null,'/images/menu/drink.jpg',3,true,true,19),
-  ('00000000-0000-0000-0001-000000000020','00000000-0000-0000-0000-000000000004','Soft Drinks','Ice-cold cola, lemon-lime or orange in can.',35,null,'/images/menu/drink.jpg',1,true,false,20),
-  ('00000000-0000-0000-0001-000000000021','00000000-0000-0000-0000-000000000004','Bottled Water','500ml purified water.',20,null,'/images/menu/drink.jpg',1,true,false,21),
-  ('00000000-0000-0000-0001-000000000022','00000000-0000-0000-0000-000000000004','Barako Coffee','Strong Batangas barako, brewed per order.',45,null,'/images/menu/coffee.jpg',5,true,false,22),
-  ('00000000-0000-0000-0001-000000000023','00000000-0000-0000-0000-000000000004','Sago''t Gulaman','Sweet muscovado drink with sago pearls.',45,null,'/images/menu/drink.jpg',4,true,false,23),
-  ('00000000-0000-0000-0001-000000000024','00000000-0000-0000-0000-000000000005','Leche Flan','Silky custard under a burnt-sugar cap.',59,null,'/images/menu/dessert.jpg',3,true,false,24),
-  ('00000000-0000-0000-0001-000000000025','00000000-0000-0000-0000-000000000005','Halo-Halo','Shaved ice, sweet beans, leche flan and ube.',89,null,'/images/menu/dessert.jpg',6,true,true,25),
-  ('00000000-0000-0000-0001-000000000026','00000000-0000-0000-0000-000000000005','Turon','Caramelised banana spring rolls, two pieces.',35,null,'/images/menu/dessert.jpg',6,true,false,26),
-  ('00000000-0000-0000-0001-000000000027','00000000-0000-0000-0000-000000000006','Tapa Hey Barkada Bundle','4 tapsilog plates, 4 iced teas and 2 turon to share.',499,399,'/images/menu/promo.jpg',25,true,true,27),
-  ('00000000-0000-0000-0001-000000000028','00000000-0000-0000-0000-000000000006','Solo Combo','Any silog meal plus a drink and leche flan.',159,129,'/images/menu/promo.jpg',15,true,false,28)
+  ('00000000-0000-0000-0001-000000000015','00000000-0000-0000-0000-000000000003','Extra Rice','One cup of steamed rice.',25,null,'/images/menu/extra-rice.jpg',3,true,false,15),
+  ('00000000-0000-0000-0001-000000000016','00000000-0000-0000-0000-000000000003','Garlic Rice','Fried rice tossed with toasted garlic.',35,null,'/images/menu/garlic-rice.jpg',5,true,false,16),
+  ('00000000-0000-0000-0001-000000000017','00000000-0000-0000-0000-000000000003','Fried Egg','Sunny-side-up, runny yolk guaranteed.',20,null,'/images/menu/fried-egg.jpg',3,true,false,17),
+  ('00000000-0000-0000-0001-000000000018','00000000-0000-0000-0000-000000000003','Atchara','Pickled green papaya to cut the richness.',25,null,'/images/menu/atchara.jpg',2,true,false,18),
+  ('00000000-0000-0000-0001-000000000019','00000000-0000-0000-0000-000000000004','Bottomless Iced Tea','House-brewed lemon iced tea, free refills in-store.',49,null,'/images/menu/bottomless-iced-tea.jpg',3,true,true,19),
+  ('00000000-0000-0000-0001-000000000020','00000000-0000-0000-0000-000000000004','Soft Drinks','Ice-cold cola, lemon-lime or orange in can.',35,null,'/images/menu/soft-drinks.jpg',1,true,false,20),
+  ('00000000-0000-0000-0001-000000000021','00000000-0000-0000-0000-000000000004','Bottled Water','500ml purified water.',20,null,'/images/menu/bottled-water.jpg',1,true,false,21),
+  ('00000000-0000-0000-0001-000000000022','00000000-0000-0000-0000-000000000004','Barako Coffee','Strong Batangas barako, brewed per order.',45,null,'/images/menu/barako-coffee.jpg',5,true,false,22),
+  ('00000000-0000-0000-0001-000000000023','00000000-0000-0000-0000-000000000004','Sago''t Gulaman','Sweet muscovado drink with sago pearls.',45,null,'/images/menu/sagot-gulaman.jpg',4,true,false,23),
+  ('00000000-0000-0000-0001-000000000024','00000000-0000-0000-0000-000000000005','Leche Flan','Silky custard under a burnt-sugar cap.',59,null,'/images/menu/leche-flan.jpg',3,true,false,24),
+  ('00000000-0000-0000-0001-000000000025','00000000-0000-0000-0000-000000000005','Halo-Halo','Shaved ice, sweet beans, leche flan and ube.',89,null,'/images/menu/halo-halo.jpg',6,true,true,25),
+  ('00000000-0000-0000-0001-000000000026','00000000-0000-0000-0000-000000000005','Turon','Caramelised banana spring rolls, two pieces.',35,null,'/images/menu/turon-real.jpg',6,true,false,26),
+  ('00000000-0000-0000-0001-000000000027','00000000-0000-0000-0000-000000000006','Tapa Hey Barkada Bundle','4 tapsilog plates, 4 iced teas and 2 turon to share.',499,399,'/images/menu/barkada-bundle.jpeg',25,true,true,27),
+  ('00000000-0000-0000-0001-000000000028','00000000-0000-0000-0000-000000000006','Solo Combo','Any silog meal plus a drink and leche flan.',159,129,'/images/menu/solo-combo.jpeg',15,true,false,28)
 on conflict (id) do update set price = excluded.price, discount_price = excluded.discount_price, available = excluded.available;
 
 -- ---------------------------------------------------------------------
@@ -186,10 +186,10 @@ insert into menu_categories (id, name, slug, description, sort_order, active) va
 on conflict (id) do nothing;
 
 insert into menu_items (id, category_id, name, description, price, image_url, prep_time_minutes, available, sort_order, sku, barcode, cost, wholesale_price, product_type, batch_number, expiration_date) values
-  ('00000000-0000-0000-0001-000000000029','00000000-0000-0000-0000-000000000007','Packaged Beef Tapa (500g)','Marinated raw beef tapa, vacuum-sealed, ready to fry at home.',320,'/images/menu/tapa.jpg',0,true,29,'TH-PKG-001','20001',190,240,'packaged','B2026-0091', current_date + 45),
-  ('00000000-0000-0000-0001-000000000030','00000000-0000-0000-0000-000000000007','Frozen Beef Tapa (1kg)','Bulk frozen beef tapa for households and resellers.',580,'/images/menu/tapa.jpg',0,true,30,'TH-PKG-002','20002',340,430,'packaged','B2026-0088', current_date + 90),
-  ('00000000-0000-0000-0001-000000000031','00000000-0000-0000-0000-000000000007','Tapa Hey Sawsawan (350ml)','House vinegar-soy dipping sauce, bottled.',99,'/images/menu/side.jpg',0,true,31,'TH-PKG-003','20003',42,65,'packaged','B2026-0102', current_date + 180),
-  ('00000000-0000-0000-0001-000000000032','00000000-0000-0000-0000-000000000007','Toasted Garlic Oil (250ml)','House-toasted garlic oil for fried rice and dips.',149,'/images/menu/side.jpg',0,true,32,'TH-PKG-004','20004',78,110,'packaged','B2026-0075', current_date + 120)
+  ('00000000-0000-0000-0001-000000000029','00000000-0000-0000-0000-000000000007','Packaged Beef Tapa (500g)','Marinated raw beef tapa, vacuum-sealed, ready to fry at home.',320,'/images/menu/packaged-tapa.webp',0,true,29,'TH-PKG-001','20001',190,240,'packaged','B2026-0091', current_date + 45),
+  ('00000000-0000-0000-0001-000000000030','00000000-0000-0000-0000-000000000007','Frozen Beef Tapa (1kg)','Bulk frozen beef tapa for households and resellers.',580,'/images/menu/frozen-tapa.webp',0,true,30,'TH-PKG-002','20002',340,430,'packaged','B2026-0088', current_date + 90),
+  ('00000000-0000-0000-0001-000000000031','00000000-0000-0000-0000-000000000007','Tapa Hey Sawsawan (350ml)','House vinegar-soy dipping sauce, bottled.',99,'/images/menu/sawsawan.jpg',0,true,31,'TH-PKG-003','20003',42,65,'packaged','B2026-0102', current_date + 180),
+  ('00000000-0000-0000-0001-000000000032','00000000-0000-0000-0000-000000000007','Toasted Garlic Oil (250ml)','House-toasted garlic oil for fried rice and dips.',149,'/images/menu/toasted-garlic-oil.jpg',0,true,32,'TH-PKG-004','20004',78,110,'packaged','B2026-0075', current_date + 120)
 on conflict (id) do nothing;
 
 -- ---------------------------------------------------------------------
