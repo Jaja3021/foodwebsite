@@ -40,6 +40,16 @@ const NO_UPDATED_AT = new Set<TableName>([
   'promotion_usage', 'resellers', 'b2b_order_items', 'invoices', 'cashier_shifts', 'audit_logs',
 ])
 
+// Columns Postgres computes itself (`generated always as (...) stored`) — Supabase
+// rejects any insert that supplies them explicitly. The local demo store has no
+// database engine to compute them, so callers still pass a value for local mode;
+// strip it only on the Supabase path.
+const GENERATED_COLUMNS: Partial<Record<TableName, string[]>> = {
+  order_items: ['subtotal'],
+  purchase_order_items: ['subtotal'],
+  b2b_order_items: ['subtotal'],
+}
+
 function applyFilters(query: any, filters: Filter[] = []) {
   let q = query
   filters.forEach((f) => {
@@ -88,7 +98,9 @@ export const db = {
     if (!NO_CREATED_AT.has(table)) row.created_at ??= nowIso()
     if (!NO_UPDATED_AT.has(table)) row.updated_at ??= nowIso()
     if (!supabase) return localDb.insert(table, row) as T
-    const { data, error } = await supabase.from(table).insert(row).select().single()
+    const remoteRow = { ...row }
+    GENERATED_COLUMNS[table]?.forEach((col) => delete remoteRow[col])
+    const { data, error } = await supabase.from(table).insert(remoteRow).select().single()
     if (error) throw new DataError(error.message, error)
     return data as T
   },
@@ -100,7 +112,9 @@ export const db = {
       return row
     })
     if (!supabase) return localDb.insertMany(table, rows) as T[]
-    const { data, error } = await supabase.from(table).insert(rows).select()
+    const generated = GENERATED_COLUMNS[table]
+    const remoteRows = generated ? rows.map((r) => { const c = { ...r }; generated.forEach((col) => delete c[col]); return c }) : rows
+    const { data, error } = await supabase.from(table).insert(remoteRows).select()
     if (error) throw new DataError(error.message, error)
     return (data ?? []) as T[]
   },
