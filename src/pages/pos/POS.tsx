@@ -66,6 +66,7 @@ function POSTerminal({ staffId, staffName, onSignOut }: { staffId: string; staff
   }, [staffId])
   const [category, setCategory] = useState('all')
   const [search, setSearch] = useState('')
+  const [mobileView, setMobileView] = useState<'menu' | 'cart'>('menu')
   const [lines, setLines] = useState<CartLine[]>([])
   const [orderType, setOrderType] = useState<OrderType>('dine_in')
   const [tableNumber, setTableNumber] = useState('')
@@ -174,15 +175,15 @@ function POSTerminal({ staffId, staffName, onSignOut }: { staffId: string; staff
   return (
     <div className="flex h-screen flex-col bg-cream">
       <DemoModeBanner compact={false} />
-      <header className="flex items-center justify-between border-b border-ink/10 bg-ink px-5 py-3">
+      <header className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 border-b border-ink/10 bg-ink px-4 py-3 sm:px-5">
         <div className="flex items-center gap-2.5">
           <img src="/images/logo.png" alt="" className="h-9 w-9" />
           <span className="font-display text-lg font-bold text-cream">
             Tapa <span className="text-gold">Hey</span> POS
           </span>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-sm text-cream/60">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <span className="hidden text-sm text-cream/60 sm:inline">
             Cashier: {staffName} · Float {peso(shift.opening_cash)}
           </span>
           <button
@@ -198,7 +199,7 @@ function POSTerminal({ staffId, staffName, onSignOut }: { staffId: string; staff
             End Shift
           </button>
           <Link to="/admin" className="btn-ghost-light btn-sm">
-            <LayoutDashboard className="h-4 w-4" /> Dashboard
+            <LayoutDashboard className="h-4 w-4" /> <span className="hidden sm:inline">Dashboard</span>
           </Link>
           <button onClick={onSignOut} className="rounded-full p-2 text-cream/60 transition hover:bg-white/10 hover:text-cream" aria-label="Sign out">
             <LogOut className="h-4 w-4" />
@@ -206,9 +207,24 @@ function POSTerminal({ staffId, staffName, onSignOut }: { staffId: string; staff
         </div>
       </header>
 
-      <div className="flex min-h-0 flex-1">
+      <div className="flex border-b border-ink/10 bg-ink/95 lg:hidden">
+        <button
+          onClick={() => setMobileView('menu')}
+          className={`flex-1 py-2.5 text-sm font-semibold transition ${mobileView === 'menu' ? 'bg-gold text-ink' : 'text-cream/60'}`}
+        >
+          Menu
+        </button>
+        <button
+          onClick={() => setMobileView('cart')}
+          className={`flex-1 py-2.5 text-sm font-semibold transition ${mobileView === 'cart' ? 'bg-gold text-ink' : 'text-cream/60'}`}
+        >
+          Order {lines.length > 0 && `(${lines.length}) · ${peso(subtotal)}`}
+        </button>
+      </div>
+
+      <div className="flex min-h-0 flex-1 flex-col lg:flex-row">
         {/* Menu grid */}
-        <div className="flex min-w-0 flex-1 flex-col">
+        <div className={`min-w-0 flex-1 flex-col ${mobileView === 'menu' ? 'flex' : 'hidden'} lg:flex`}>
           <div className="flex flex-col gap-3 border-b border-ink/10 bg-offwhite p-4 sm:flex-row sm:items-center">
             <div className="scroll-slim -mx-1 flex flex-1 gap-1.5 overflow-x-auto px-1">
               <CategoryPill label="All" active={category === 'all'} onClick={() => setCategory('all')} />
@@ -250,7 +266,7 @@ function POSTerminal({ staffId, staffName, onSignOut }: { staffId: string; staff
         </div>
 
         {/* Order panel */}
-        <aside className="flex w-full max-w-sm flex-col border-l border-ink/10 bg-white">
+        <aside className={`w-full min-h-0 flex-col border-ink/10 bg-white lg:flex lg:max-w-sm lg:border-l ${mobileView === 'cart' ? 'flex flex-1' : 'hidden'}`}>
           <div className="border-b border-ink/10 p-4">
             <div className="grid grid-cols-2 gap-2">
               <button
