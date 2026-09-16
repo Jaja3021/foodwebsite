@@ -193,23 +193,3 @@ export function canAccess(user: SessionUser | null, section: string): boolean {
   if (!user?.staff || !user.staff.active) return false
   return ROLE_PERMISSIONS[user.staff.role].includes(section)
 }
-
-/**
- * TEMPORARY DEMO CONVENIENCE — auto-signs in as the seeded Super Admin so
- * /admin and /pos can be opened straight from the launcher with no login
- * screen, the same way /home needs none. Remove this (and restore the
- * `/admin/login` redirect in AdminLayout/POS) before any real deployment —
- * it only works in local demo mode, where the seeded credentials exist.
- */
-let bypassInFlight = false
-export async function bypassStaffLogin(): Promise<void> {
-  if (bypassInFlight) return
-  bypassInFlight = true
-  try {
-    await auth.signIn('admin@tapahey.demo', 'DemoAdmin123!')
-  } catch {
-    /* Supabase mode, or the demo account was removed — fall back to the real login screen. */
-  } finally {
-    bypassInFlight = false
-  }
-}

@@ -31,6 +31,15 @@ export class DataError extends Error {
   }
 }
 
+// Tables whose schema (see supabase/schema.sql) omits created_at/updated_at —
+// db.insert/update must not send columns these tables don't have.
+const NO_CREATED_AT = new Set<TableName>(['website_content', 'restaurant_settings', 'integrations', 'purchase_order_items', 'b2b_order_items', 'cashier_shifts'])
+const NO_UPDATED_AT = new Set<TableName>([
+  'restaurant_tables', 'branches', 'order_items', 'inventory_transactions', 'notifications', 'favorites',
+  'recipe_items', 'suppliers', 'purchase_orders', 'purchase_order_items', 'loyalty_transactions', 'promotions',
+  'promotion_usage', 'resellers', 'b2b_order_items', 'invoices', 'cashier_shifts', 'audit_logs',
+])
+
 function applyFilters(query: any, filters: Filter[] = []) {
   let q = query
   filters.forEach((f) => {
@@ -75,7 +84,9 @@ export const db = {
   },
 
   async insert<T>(table: TableName, values: Record<string, any>): Promise<T> {
-    const row = { id: values.id ?? uid(), created_at: nowIso(), updated_at: nowIso(), ...values }
+    const row: Record<string, any> = { id: values.id ?? uid(), ...values }
+    if (!NO_CREATED_AT.has(table)) row.created_at ??= nowIso()
+    if (!NO_UPDATED_AT.has(table)) row.updated_at ??= nowIso()
     if (!supabase) return localDb.insert(table, row) as T
     const { data, error } = await supabase.from(table).insert(row).select().single()
     if (error) throw new DataError(error.message, error)
@@ -83,7 +94,11 @@ export const db = {
   },
 
   async insertMany<T>(table: TableName, values: Record<string, any>[]): Promise<T[]> {
-    const rows = values.map((v) => ({ id: v.id ?? uid(), created_at: nowIso(), ...v }))
+    const rows = values.map((v) => {
+      const row: Record<string, any> = { id: v.id ?? uid(), ...v }
+      if (!NO_CREATED_AT.has(table)) row.created_at ??= nowIso()
+      return row
+    })
     if (!supabase) return localDb.insertMany(table, rows) as T[]
     const { data, error } = await supabase.from(table).insert(rows).select()
     if (error) throw new DataError(error.message, error)
@@ -91,7 +106,7 @@ export const db = {
   },
 
   async update<T>(table: TableName, id: string, patch: Record<string, any>): Promise<T> {
-    const body = { ...patch, updated_at: nowIso() }
+    const body = NO_UPDATED_AT.has(table) ? { ...patch } : { ...patch, updated_at: nowIso() }
     if (!supabase) {
       const row = localDb.update(table, id, body)
       if (!row) throw new DataError('Record not found.')

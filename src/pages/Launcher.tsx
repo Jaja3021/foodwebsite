@@ -1,6 +1,11 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ChefHat, LayoutDashboard, ShoppingBag, ArrowRight } from 'lucide-react'
 import { DemoModeBanner } from '../components/Brand'
+import { useAuth } from '../hooks/useAuth'
+
+const DEMO_ADMIN_EMAIL = 'admin@tapahey.demo'
+const DEMO_ADMIN_PASSWORD = 'DemoAdmin123!'
 
 const OPTIONS = [
   {
@@ -9,6 +14,7 @@ const OPTIONS = [
     title: 'Customer Website',
     description: 'Browse the menu, add to cart, checkout, and track an order — exactly as a diner would.',
     cta: 'Enter Website',
+    autoLogin: false,
   },
   {
     to: '/admin',
@@ -16,6 +22,7 @@ const OPTIONS = [
     title: 'Admin Dashboard',
     description: 'Manage orders, menu, inventory, reservations, reviews, staff, and view sales reports.',
     cta: 'Open Dashboard',
+    autoLogin: true,
   },
   {
     to: '/pos',
@@ -23,11 +30,30 @@ const OPTIONS = [
     title: 'Point of Sale',
     description: 'Take a walk-in order at the counter — dine-in or takeout, paid on the spot.',
     cta: 'Open POS',
+    autoLogin: true,
   },
 ]
 
 export default function Launcher() {
   const navigate = useNavigate()
+  const { user, signIn } = useAuth()
+  const [entering, setEntering] = useState<string | null>(null)
+
+  const enter = async (opt: (typeof OPTIONS)[number]) => {
+    if (!opt.autoLogin || user?.staff?.active) {
+      navigate(opt.to)
+      return
+    }
+    setEntering(opt.to)
+    try {
+      await signIn(DEMO_ADMIN_EMAIL, DEMO_ADMIN_PASSWORD)
+    } catch {
+      /* Falls through to the real login screen if the demo account is unavailable. */
+    } finally {
+      setEntering(null)
+      navigate(opt.to)
+    }
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-ink">
@@ -48,8 +74,9 @@ export default function Launcher() {
           {OPTIONS.map((opt) => (
             <button
               key={opt.to}
-              onClick={() => navigate(opt.to)}
-              className="group flex flex-col items-start rounded-3xl bg-white/5 p-7 text-left ring-1 ring-cream/10 transition-all duration-300 hover:-translate-y-1.5 hover:bg-white/10 hover:ring-gold/40"
+              onClick={() => enter(opt)}
+              disabled={entering === opt.to}
+              className="group flex flex-col items-start rounded-3xl bg-white/5 p-7 text-left ring-1 ring-cream/10 transition-all duration-300 hover:-translate-y-1.5 hover:bg-white/10 hover:ring-gold/40 disabled:cursor-wait disabled:opacity-70"
             >
               <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gold text-ink transition group-hover:scale-110">
                 <opt.icon className="h-7 w-7" />
@@ -57,7 +84,8 @@ export default function Launcher() {
               <h2 className="mt-5 font-display text-xl font-bold text-cream">{opt.title}</h2>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-cream/60">{opt.description}</p>
               <span className="mt-5 flex items-center gap-1.5 text-sm font-bold text-gold">
-                {opt.cta} <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                {entering === opt.to ? 'Entering…' : opt.cta}
+                {entering !== opt.to && <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />}
               </span>
             </button>
           ))}

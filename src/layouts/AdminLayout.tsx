@@ -33,7 +33,7 @@ import {
   X,
 } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
-import { canAccess, bypassStaffLogin } from '../lib/auth'
+import { canAccess } from '../lib/auth'
 import { useLiveQuery } from '../hooks/useLiveQuery'
 import { notificationService } from '../services/notifications'
 import { Avatar, LoadingBlock } from '../components/ui'
@@ -87,11 +87,9 @@ export function AdminLayout() {
     setBellOpen(false)
   }, [location.pathname])
 
-  // TEMPORARY: no login gate on the admin dashboard — auto-enter as the demo
-  // Super Admin. See bypassStaffLogin() in lib/auth.ts.
   useEffect(() => {
-    if (!loading && !user) bypassStaffLogin()
-  }, [loading, user])
+    if (!loading && !user) navigate('/admin/login', { replace: true, state: { from: location.pathname } })
+  }, [loading, user, navigate, location.pathname])
 
   if (loading || !user) return <LoadingBlock label="Loading the dashboard…" />
   if (!user.staff || !user.staff.active) {

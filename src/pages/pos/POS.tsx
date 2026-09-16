@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { LayoutDashboard, LogOut, Minus, Plus, Search, ShoppingBag, Trash2, X } from 'lucide-react'
 import { useAuth } from '../../hooks/useAuth'
-import { canAccess, bypassStaffLogin } from '../../lib/auth'
+import { canAccess } from '../../lib/auth'
 import { useLiveQuery } from '../../hooks/useLiveQuery'
 import { menuService, effectivePrice } from '../../services/menu'
 import { orderService } from '../../services/orders'
@@ -25,11 +25,9 @@ export default function POS() {
   const { user, loading, signOut } = useAuth()
   const navigate = useNavigate()
 
-  // TEMPORARY: no login gate on the POS terminal — auto-enter as the demo
-  // Super Admin. See bypassStaffLogin() in lib/auth.ts.
   useEffect(() => {
-    if (!loading && !user) bypassStaffLogin()
-  }, [loading, user])
+    if (!loading && !user) navigate('/admin/login', { replace: true, state: { from: '/pos' } })
+  }, [loading, user, navigate])
 
   if (loading || !user) return <LoadingBlock label="Loading the POS terminal…" />
   if (!canAccess(user, 'pos') || !user.staff) {
