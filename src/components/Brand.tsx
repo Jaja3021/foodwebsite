@@ -1,6 +1,4 @@
 import { Link } from 'react-router-dom'
-import { backend } from '../lib/db'
-import { isDemoMode } from '../services/payment'
 
 export function Logo({ size = 44, to = '/home', showWordmark = true, light = false }: {
   size?: number
@@ -37,8 +35,7 @@ export function DemoModeBanner({ compact = false }: { compact?: boolean }) {
   }
   return (
     <div className="bg-gold px-4 py-1.5 text-center text-[11px] font-bold uppercase tracking-[0.12em] text-ink sm:text-xs">
-      🟡 Demo Mode — {isDemoMode ? 'simulated payments' : 'Stripe test mode'} · no real money is charged ·{' '}
-      {backend === 'supabase' ? 'Supabase backend' : 'local demo database'}
+      🟡 Demo Mode
     </div>
   )
 }
