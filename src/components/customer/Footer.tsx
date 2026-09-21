@@ -12,7 +12,7 @@ const QUICK_LINKS = [
   { to: '/contact', label: 'Contact' },
 ]
 
-export function Footer() {
+export function Footer({ className = '' }: { className?: string }) {
   const { data } = useLiveQuery(
     async () => ({
       footer: await contentService.getSection<{ tagline: string; blurb: string; facebook: string; instagram: string; tiktok: string }>('footer'),
@@ -25,7 +25,7 @@ export function Footer() {
   const location = data?.location
 
   return (
-    <footer className="bg-ink text-cream">
+    <footer className={`bg-ink text-cream ${className}`}>
       <div className="container-th grid gap-10 px-5 py-14 sm:px-8 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">

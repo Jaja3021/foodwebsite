@@ -24,7 +24,7 @@ export function Logo({ size = 44, to = '/home', showWordmark = true, light = fal
 }
 
 /** Always-on reminder that no real money moves through this build. */
-export function DemoModeBanner({ compact = false }: { compact?: boolean }) {
+export function DemoModeBanner({ compact = false, className = '' }: { compact?: boolean; className?: string }) {
   if (compact) {
     return (
       <span className="inline-flex items-center gap-1.5 rounded-full bg-gold/20 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-golddark">
@@ -34,7 +34,7 @@ export function DemoModeBanner({ compact = false }: { compact?: boolean }) {
     )
   }
   return (
-    <div className="bg-gold px-4 py-1.5 text-center text-[11px] font-bold uppercase tracking-[0.12em] text-ink sm:text-xs">
+    <div className={`bg-gold px-4 py-1.5 text-center text-[11px] font-bold uppercase tracking-[0.12em] text-ink sm:text-xs ${className}`}>
       🟡 Demo Mode
     </div>
   )

@@ -61,7 +61,10 @@ export default function MenuPage() {
         </p>
       </header>
 
-      <section className="sticky top-[68px] z-40 border-b border-ink/10 bg-offwhite/95 backdrop-blur-md">
+      <section
+        className="sticky z-40 border-b border-ink/10 bg-offwhite/95 backdrop-blur-md"
+        style={{ top: 'var(--navbar-h, 68px)' }}
+      >
         <div className="container-th flex flex-col gap-3 px-5 py-4 sm:px-8 lg:flex-row lg:items-center">
           <div className="scroll-slim -mx-1 flex flex-1 gap-2 overflow-x-auto px-1 pb-1">
             <CategoryPill label="All" active={active === 'all'} onClick={() => setActive('all')} />

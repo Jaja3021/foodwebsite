@@ -14,16 +14,12 @@ export function CustomerLayout() {
 
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="no-print">
-        <DemoModeBanner />
-        <Navbar />
-      </div>
+      <DemoModeBanner className="no-print" />
+      <Navbar className="no-print" />
       <main className="flex-1">
         <Outlet />
       </main>
-      <div className="no-print">
-        <Footer />
-      </div>
+      <Footer className="no-print" />
       <CartDrawer />
     </div>
   )

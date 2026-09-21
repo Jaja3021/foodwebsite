@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { Menu, ShoppingBag, User, X, LogOut, Package, CalendarCheck, Heart } from 'lucide-react'
 import { Logo } from '../Brand'
@@ -15,7 +15,7 @@ const LINKS = [
   { to: '/contact', label: 'Contact' },
 ]
 
-export function Navbar() {
+export function Navbar({ className = '' }: { className?: string }) {
   const { count, openCart } = useCart()
   const { user, signOut } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -23,6 +23,7 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
   const navigate = useNavigate()
+  const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16)
@@ -32,15 +33,28 @@ export function Navbar() {
   }, [])
 
   useEffect(() => {
+    const el = headerRef.current
+    if (!el) return
+    const setHeight = () => {
+      document.documentElement.style.setProperty('--navbar-h', `${el.offsetHeight}px`)
+    }
+    setHeight()
+    const observer = new ResizeObserver(setHeight)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
     setMobileOpen(false)
     setAccountOpen(false)
   }, [location.pathname])
 
   return (
     <header
+      ref={headerRef}
       className={`sticky top-0 z-50 transition-all duration-300 ${
         scrolled ? 'bg-offwhite/95 shadow-soft backdrop-blur-md' : 'bg-offwhite'
-      }`}
+      } ${className}`}
     >
       <nav className="container-th flex items-center justify-between gap-4 px-5 py-3 sm:px-8">
         <Logo />
